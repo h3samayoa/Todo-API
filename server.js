@@ -9,11 +9,11 @@ var todos = [{
 	id: 2,
 	description: 'Hang out with friends',
 	completed: false
-}, 
+}, {
 	id: 3, 
-	description: 'Wake up''
+	description: 'Wake up'
 	completed: true
-];
+}];
 
 app.get('/', function (req, res) {
 	res.send('Todo API Root');
