@@ -15,7 +15,7 @@ app.get('/', function(req, res) {
 	res.send('Todo API Root');
 });
 
-// Get /todos?completed=false&q=work
+// GET /todos?completed=false&q=work
 app.get('/todos', function(req, res) {
 	var query = req.query;
 	var where = {};
@@ -36,12 +36,12 @@ app.get('/todos', function(req, res) {
 		where: where
 	}).then(function(todos) {
 		res.json(todos);
-	}).then(function(e) {
+	}, function(e) {
 		res.status(500).send();
 	});
 });
 
-// Get /todos/:id
+// GET /todos/:id
 app.get('/todos/:id', function(req, res) {
 	var todoId = parseInt(req.params.id, 10);
 
@@ -53,12 +53,12 @@ app.get('/todos/:id', function(req, res) {
 		}
 	}, function(e) {
 		res.status(500).send();
-	})
+	});
 });
 
 // POST /todos
 app.post('/todos', function(req, res) {
-	var body = _.pick(req.body, 'description', 'completed'); // Use _.pick to only description and completed 
+	var body = _.pick(req.body, 'description', 'completed');
 
 	db.todo.create(body).then(function(todo) {
 		res.json(todo.toJSON());
@@ -78,17 +78,17 @@ app.delete('/todos/:id', function(req, res) {
 	}).then(function(rowsDeleted) {
 		if (rowsDeleted === 0) {
 			res.status(404).json({
-				error: 'no todo found with that id'
+				error: 'No todo with id'
 			});
 		} else {
 			res.status(204).send();
 		}
-	}, function(e) {
+	}, function() {
 		res.status(500).send();
 	});
 });
 
-// PUT/todos/:id
+// PUT /todos/:id
 app.put('/todos/:id', function(req, res) {
 	var todoId = parseInt(req.params.id, 10);
 	var body = _.pick(req.body, 'description', 'completed');
@@ -114,7 +114,7 @@ app.put('/todos/:id', function(req, res) {
 		}
 	}, function() {
 		res.status(500).send();
-	})
+	});
 });
 
 app.post('/users', function (req, res) {
@@ -127,13 +127,13 @@ app.post('/users', function (req, res) {
 	});
 });
 
-// POST /users/login 
+// POST /users/login
 app.post('/users/login', function (req, res) {
 	var body = _.pick(req.body, 'email', 'password');
 
 	db.user.authenticate(body).then(function (user) {
 		res.json(user.toPublicJSON());
-	}, function (e) {
+	}, function () {
 		res.status(401).send();
 	});
 });
