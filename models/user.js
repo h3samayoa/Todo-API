@@ -35,15 +35,23 @@ module.exports = function(sequelize, DataTypes) {
 	}, {
 		hooks: {
 			beforeValidate: function(user, options) {
-				//user.email 
+				//user.email
 				if (typeof user.email === 'string') {
 					user.email = user.email.toLowerCase();
 				}
 			}
+<<<<<<< HEAD
 		},
 
 		classMethods: {
 			authenticate: function(body) {
+=======
+		}
+	});
+
+
+	  user.authenticate = function(body) {
+>>>>>>> 40ca227d9dc47bd8735ccc3f48221281c41a93ec
 				return new Promise(function(resolve, reject) {
 					if (typeof body.email !== 'string' || typeof body.password !== 'string') {
 						return reject();
@@ -63,20 +71,30 @@ module.exports = function(sequelize, DataTypes) {
 						reject();
 					});
 				});
-			}
-		},
+			};
 
+<<<<<<< HEAD
 		User.prototype.toPublicJSON = function () {
 			var json = this.toJSON();
 			return _.pick(json, 'id', 'email', 'updatedAt', 'createdAt');
 		},
+=======
+		user.prototype.toPublicJSON = function() {
+			var json = this.toJSON();
+			return _.pick(json, 'id', 'email', 'updatedAt', 'createdAt');
+		};
+>>>>>>> 40ca227d9dc47bd8735ccc3f48221281c41a93ec
 		// instanceMethods: {
 		// 	toPublicJSON: function() {
 		// 		var json = this.toJSON();
 		// 		return _.pick(json, 'id', 'email', 'updatedAt', 'createdAt');
 		// 	}
 		// }
-	});
 
+<<<<<<< HEAD
 	return User;
 };
+=======
+	return user;
+};
+>>>>>>> 40ca227d9dc47bd8735ccc3f48221281c41a93ec
