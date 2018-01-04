@@ -2,7 +2,7 @@ var bcrypt = require('bcrypt');
 var _ = require('underscore');
 
 module.exports = function(sequelize, DataTypes) {
-	var user = sequelize.define('user', {
+	var User = sequelize.define('user', {
 		email: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -41,6 +41,7 @@ module.exports = function(sequelize, DataTypes) {
 				}
 			}
 		},
+
 		classMethods: {
 			authenticate: function(body) {
 				return new Promise(function(resolve, reject) {
@@ -65,10 +66,10 @@ module.exports = function(sequelize, DataTypes) {
 			}
 		},
 
-		Model.prototype.toPublicJSON = function() {
+		User.prototype.toPublicJSON = function () {
 			var json = this.toJSON();
 			return _.pick(json, 'id', 'email', 'updatedAt', 'createdAt');
-		}
+		},
 		// instanceMethods: {
 		// 	toPublicJSON: function() {
 		// 		var json = this.toJSON();
@@ -77,5 +78,5 @@ module.exports = function(sequelize, DataTypes) {
 		// }
 	});
 
-	return user;
+	return User;
 };
