@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=production DATABASE_URL=postgres://spgrjvzzuyxoiu:b6cc2f5401b2dceb5abe328489441137cf839ef9e895969fa2329a0a718a51dc@ec2-107-22-160-199.compute-1.amazonaws.com:5432/d1g5o0vrkt4nir node server.js"
+    "start": "DEBUG=sequelize* NODE_ENV=production DATABASE_URL=postgres://spgrjvzzuyxoiu:b6cc2f5401b2dceb5abe328489441137cf839ef9e895969fa2329a0a718a51dc@ec2-107-22-160-199.compute-1.amazonaws.com:5432/d1g5o0vrkt4nir node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.13.3",
     "express": "^4.13.3",
-    "pg": "^4.4.1",
+    "pg": "^6.0.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.28.6",
     "sqlite3": "^3.0.10",
