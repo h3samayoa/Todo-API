@@ -64,12 +64,17 @@ module.exports = function(sequelize, DataTypes) {
 				});
 			}
 		},
-		instanceMethods: {
-			toPublicJSON: function() {
-				var json = this.toJSON();
-				return _.pick(json, 'id', 'email', 'updatedAt', 'createdAt');
-			}
+
+		Model.prototype.toPublicJSON = function() {
+			var json = this.toJSON();
+			return _.pick(json, 'id', 'email', 'updatedAt', 'createdAt');
 		}
+		// instanceMethods: {
+		// 	toPublicJSON: function() {
+		// 		var json = this.toJSON();
+		// 		return _.pick(json, 'id', 'email', 'updatedAt', 'createdAt');
+		// 	}
+		// }
 	});
 
 	return user;
