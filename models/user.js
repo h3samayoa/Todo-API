@@ -2,7 +2,7 @@ var bcrypt = require('bcrypt');
 var _ = require('underscore');
 
 module.exports = function(sequelize, DataTypes) {
-	var User = sequelize.define('user', {
+	var user = sequelize.define('user', {
 		email: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -40,61 +40,42 @@ module.exports = function(sequelize, DataTypes) {
 					user.email = user.email.toLowerCase();
 				}
 			}
-<<<<<<< HEAD
-		},
-
-		classMethods: {
-			authenticate: function(body) {
-=======
 		}
 	});
 
 
-	  user.authenticate = function(body) {
->>>>>>> 40ca227d9dc47bd8735ccc3f48221281c41a93ec
-				return new Promise(function(resolve, reject) {
-					if (typeof body.email !== 'string' || typeof body.password !== 'string') {
-						return reject();
-					}
+	user.authenticate = function(body) {
+		return new Promise(function(resolve, reject) {
+			if (typeof body.email !== 'string' || typeof body.password !== 'string') {
+				return reject();
+			}
 
-					user.findOne({
-						where: {
-							email: body.email
-						}
-					}).then(function(user) {
-						if (!user || !bcrypt.compareSync(body.password, user.get('password_hash'))) {
-							return reject();
-						}
+			user.findOne({
+				where: {
+					email: body.email
+				}
+			}).then(function(user) {
+				if (!user || !bcrypt.compareSync(body.password, user.get('password_hash'))) {
+					return reject();
+				}
 
-						resolve(user);
-					}, function(e) {
-						reject();
-					});
-				});
-			};
+				resolve(user);
+			}, function(e) {
+				reject();
+			});
+		});
+	};
 
-<<<<<<< HEAD
-		User.prototype.toPublicJSON = function () {
-			var json = this.toJSON();
-			return _.pick(json, 'id', 'email', 'updatedAt', 'createdAt');
-		},
-=======
-		user.prototype.toPublicJSON = function() {
-			var json = this.toJSON();
-			return _.pick(json, 'id', 'email', 'updatedAt', 'createdAt');
-		};
->>>>>>> 40ca227d9dc47bd8735ccc3f48221281c41a93ec
-		// instanceMethods: {
-		// 	toPublicJSON: function() {
-		// 		var json = this.toJSON();
-		// 		return _.pick(json, 'id', 'email', 'updatedAt', 'createdAt');
-		// 	}
-		// }
+	user.prototype.toPublicJSON = function() {
+		var json = this.toJSON();
+		return _.pick(json, 'id', 'email', 'updatedAt', 'createdAt');
+	};
+	// instanceMethods: {
+	// 	toPublicJSON: function() {
+	// 		var json = this.toJSON();
+	// 		return _.pick(json, 'id', 'email', 'updatedAt', 'createdAt');
+	// 	}
+	// }
 
-<<<<<<< HEAD
-	return User;
-};
-=======
 	return user;
 };
->>>>>>> 40ca227d9dc47bd8735ccc3f48221281c41a93ec
