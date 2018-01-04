@@ -35,14 +35,16 @@ module.exports = function(sequelize, DataTypes) {
 	}, {
 		hooks: {
 			beforeValidate: function(user, options) {
-				//user.email 
+				//user.email
 				if (typeof user.email === 'string') {
 					user.email = user.email.toLowerCase();
 				}
 			}
-		},
-		classMethods: {
-			authenticate: function(body) {
+		}
+	});
+
+
+	  user.authenticate = function(body) {
 				return new Promise(function(resolve, reject) {
 					if (typeof body.email !== 'string' || typeof body.password !== 'string') {
 						return reject();
@@ -62,20 +64,18 @@ module.exports = function(sequelize, DataTypes) {
 						reject();
 					});
 				});
-			}
-		},
+			};
 
-		Model.prototype.toPublicJSON = function() {
+		user.prototype.toPublicJSON = function() {
 			var json = this.toJSON();
 			return _.pick(json, 'id', 'email', 'updatedAt', 'createdAt');
-		}
+		};
 		// instanceMethods: {
 		// 	toPublicJSON: function() {
 		// 		var json = this.toJSON();
 		// 		return _.pick(json, 'id', 'email', 'updatedAt', 'createdAt');
 		// 	}
 		// }
-	});
 
 	return user;
 };
